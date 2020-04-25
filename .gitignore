@@ -1,0 +1,8 @@
+/assets/
+go.bat
+migrate.bat
+makem.bat
+/static/
+/secrets/
+__init__.py
+requirements.txt

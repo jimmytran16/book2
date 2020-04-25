@@ -1,0 +1,118 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <title>Register</title>
+  <link rel="shortcut icon" type="image/png" href="{% static 'img/fav.png' %}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <!-- local css -->
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/owl.carousel.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/register.css' %}" />
+  <title>Register</title>
+</head>
+
+<body>
+  <header>
+    <div class="header-top">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3"><a href="/" class="web-url">www.thecsbookstore.com</a></div>
+          <div class="col-md-6">
+            <h5></h5>
+          </div>
+          <div class="col-md-3">
+            <span class="ph-number">The CS Book Store</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="main-menu">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light">
+          <a class="navbar-brand" href="/"><img src="{% static 'images/logo.png' %}" alt="logo"></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+              <li class="navbar-item">
+                <a href="/" class="nav-link">Home</a>
+              </li>
+              <li class="navbar-item">
+                <a href="adminpage" class="nav-link">Admin</a>
+              </li>
+              <li class="navbar-item ">
+                <a href="users" class="nav-link">User</a>
+              </li>
+            </ul>
+
+          </div>
+        </nav>
+      </div>
+    </div>
+  </header>
+  <form action="accountRegister" method="POST"> {% csrf_token %}
+    <div class="container form-container">
+      <h1 class="h1-register">Register</h1>
+      <p>Please fill in this form to create an account.</p>
+      {% if user_exist %}
+      <span style="color:red;">{{user_exist}}</span>
+      {% endif %}
+      <hr>
+
+      <label for="email"><b>Email</b></label>
+      <input type="text" placeholder="Enter Email" name="email" required>
+
+      <label for="psw"><b>Password</b></label>
+      <input type="password" id="first-pass" placeholder="Enter Password" name="psw" required>
+
+      <label for="psw-repeat"><b>Repeat Password</b></label>
+      <input type="password" id="second-pass" onchange="checkPasswordMatch();" placeholder="Repeat Password" name="psw-repeat" required>
+      <div style="color:red" class="registrationFormAlert" id="divCheckPasswordMatch">
+      </div>
+      <label for="address"><b>Address</b></label>
+      <input type="text" placeholder="Full Address" name="address" required>
+      <input type="text" placeholder="Zip Code" name="zip" required>
+
+      <label for="psw-repeat"><b>Company</b></label>
+      <input type="text" placeholder="Company" name="company" required>
+      <hr>
+
+      <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
+      <button type="submit" id="register-btn" class="registerbtn">Register</button>
+    </div>
+
+    <div class="container signin">
+      <p>Already have an account? <a href="users">Sign in</a>.</p>
+    </div>
+  </form>
+  <!-- Jquery library 1.7.1 -->
+  <script src="https://code.jquery.com/jquery-1.7.1.js" integrity="sha256-n8wkEJNAWUaIUDnfQoz6fwBRofK9vMWjE6F3qeNfiAY=" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    function checkPasswordMatch() {
+      var password = $("#first-pass").val();
+      var confirmPassword = $("#second-pass").val();
+      // if passwords don't match, prompt user and disable the register button
+      if (password != confirmPassword) {
+        $("#divCheckPasswordMatch").html("Passwords do not match!");
+        document.getElementById('register-btn').disabled = true;
+      } else {
+        document.getElementById('register-btn').disabled = false;
+        $("#divCheckPasswordMatch").html("");
+      }
+
+    }
+    $(document).ready(function() {
+      $("#txtNewPassword, #txtConfirmPassword").keyup(checkPasswordMatch);
+    });
+  </script>
+  <script src="{% static 'js/jquery.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'js/custom.js' %}"></script>
+  <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+</body>
+
+</html>
